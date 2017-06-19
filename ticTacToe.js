@@ -1,5 +1,7 @@
 const prompt = require('prompt');
 
+// made in 1 hour
+
 class Game {
   constructor() {
     this.board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']];
@@ -34,6 +36,7 @@ class Game {
           this.placePiece(player, move);
           const isWin = this.checkForWin();
           if (isWin) {
+            this.printBoard();
             console.log('Player ', this.currentPlayer, ' won the game!');
           } else {
             if (this.currentPlayer === this.playerX) {
@@ -79,7 +82,24 @@ class Game {
         }
       }
     }
+
+    for (let i = 0; i < this.board.length; i++) {
+      lastThree.push(this.board[0][i]);
+      lastThree.push(this.board[1][i]);
+      lastThree.push(this.board[2][i]);
+      let isWin = this.checkLastThree(lastThree, this.board[2][i]);
+      if (isWin) {
+        return true;
+      } else {
+        lastThree = [];
+      }
+    }
+
+    return false;
   }
+
+  // check for column wins
+
 
   checkLastThree(lastThree, target) {
     return lastThree.every((symbol) => {
