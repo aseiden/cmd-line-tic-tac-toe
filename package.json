@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/aseiden/cmd-line-tic-tac-toe/issues"
   },
-  "homepage": "https://github.com/aseiden/cmd-line-tic-tac-toe#readme"
+  "homepage": "https://github.com/aseiden/cmd-line-tic-tac-toe#readme",
+  "dependencies": {
+    "prompt": "^1.0.0"
+  }
 }
