@@ -2,7 +2,7 @@ const prompt = require('prompt');
 
 class Game {
   constructor() {
-    this.board = [['', '', ''], ['', '', ''], ['', '', '']];
+    this.board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']];
     this.validRowsAndColumns = {0: 0, 1: 1, 2: 2};
     this.playerX = 'X';
     this.playerO = 'O';
@@ -38,13 +38,16 @@ class Game {
             this.currentPlayer = this.playerX;
           }
           this.startRound(this.currentPlayer);
+        } else {
+          console.log('That was not a valid move, please try again.');
+          this.promptForInput(player);
         }
       }
     });
   }
 
   isValidMove(move) {
-    if ((move.row in this.validRowsAndColumns) && (move.column in this.validRowsAndColumns) && this.board[move.row][move.column] !== ' ') {
+    if ((move.row in this.validRowsAndColumns) && (move.column in this.validRowsAndColumns) && this.board[move.row][move.column] === ' ') {
       return true;
     } else {
       return false;
