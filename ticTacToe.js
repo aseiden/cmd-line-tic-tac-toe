@@ -32,12 +32,17 @@ class Game {
       } else {
         if (this.isValidMove(move)) {
           this.placePiece(player, move);
-          if (this.currentPlayer === this.playerX) {
-            this.currentPlayer = this.playerO;
+          const isWin = this.checkForWin();
+          if (isWin) {
+            console.log('Player ', this.currentPlayer, ' won the game!');
           } else {
-            this.currentPlayer = this.playerX;
+            if (this.currentPlayer === this.playerX) {
+              this.currentPlayer = this.playerO;
+            } else {
+              this.currentPlayer = this.playerX;
+            }
+            this.startRound(this.currentPlayer);
           }
-          this.startRound(this.currentPlayer);
         } else {
           console.log('That was not a valid move, please try again.');
           this.promptForInput(player);
@@ -56,6 +61,30 @@ class Game {
 
   placePiece(player, move) {
     this.board[move.row][move.column] = player;
+  }
+
+  checkForWin() {
+    // check for row wins
+    let lastThree = [];
+    for (let i = 0; i < this.board.length; i++) {
+      for (let n = 0; n < this.board[i].length; n++) {
+        lastThree.push(this.board[i][n]);
+        if (lastThree.length === 3) {
+          let isWin = this.checkLastThree(lastThree, this.board[i][n]);
+          if (isWin) {
+            return true;
+          } else {
+            lastThree = [];
+          }
+        }
+      }
+    }
+  }
+
+  checkLastThree(lastThree, target) {
+    return lastThree.every((symbol) => {
+      return symbol === target && target !== ' ';
+    });
   }
 }
 
