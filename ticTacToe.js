@@ -83,6 +83,7 @@ class Game {
       }
     }
 
+    // check for column wins
     for (let i = 0; i < this.board.length; i++) {
       lastThree.push(this.board[0][i]);
       lastThree.push(this.board[1][i]);
@@ -97,9 +98,6 @@ class Game {
 
     return false;
   }
-
-  // check for column wins
-
 
   checkLastThree(lastThree, target) {
     return lastThree.every((symbol) => {
