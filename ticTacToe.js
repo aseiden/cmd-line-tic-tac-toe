@@ -4,6 +4,9 @@ class Game {
   constructor() {
     this.board = [['', '', ''], ['', '', ''], ['', '', '']];
     this.validRowsAndColumns = {0: 0, 1: 1, 2: 2};
+    this.playerX = 'X';
+    this.playerO = 'O';
+    this.nextPlayer = this.playerX;
   }
 
   printBoard() {
@@ -19,7 +22,8 @@ class Game {
         console.log('error: ', err);
       } else {
         if (this.isValidMove(move)) {
-          console.log('valid move');
+          this.placePiece(player, move);
+          this.printBoard();
         }
       }
     });
@@ -32,7 +36,11 @@ class Game {
       return false;
     }
   }
+
+  placePiece(player, move) {
+    this.board[move.row][move.column] = player;
+  }
 }
 
 const game = new Game();
-game.promptForInput();
+game.promptForInput('X');
