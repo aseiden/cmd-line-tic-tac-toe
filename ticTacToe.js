@@ -6,13 +6,22 @@ class Game {
     this.validRowsAndColumns = {0: 0, 1: 1, 2: 2};
     this.playerX = 'X';
     this.playerO = 'O';
-    this.nextPlayer = this.playerX;
+    this.currentPlayer = this.playerX;
+    this.startRound(this.currentPlayer);
   }
 
   printBoard() {
     this.board.forEach((row) => {
       console.log(row);
     });
+  }
+
+  startRound(player) {
+    console.log('It is your turn player ', player);
+    console.log('This is the board state: ');
+    this.printBoard();
+    console.log('What is your move?');
+    this.promptForInput(player);
   }
 
   promptForInput(player) {
@@ -23,7 +32,12 @@ class Game {
       } else {
         if (this.isValidMove(move)) {
           this.placePiece(player, move);
-          this.printBoard();
+          if (this.currentPlayer === this.playerX) {
+            this.currentPlayer = this.playerO;
+          } else {
+            this.currentPlayer = this.playerX;
+          }
+          this.startRound(this.currentPlayer);
         }
       }
     });
@@ -43,4 +57,3 @@ class Game {
 }
 
 const game = new Game();
-game.promptForInput('X');
